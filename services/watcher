@@ -1,0 +1,6 @@
+#!/bin/bash
+while true; do
+	while inotifywait -e close_write,moved_to,create /etc/haproxy; do
+		haproxy -db -f /etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid -sf $(cat /var/run/haproxy.pid)
+	done
+done
